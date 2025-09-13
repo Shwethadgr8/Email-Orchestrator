@@ -1,81 +1,49 @@
 {
+    "behavior_label": "New_Info_Path_Renovation",
     "thread": [
         {
             "message_id": "msg_01",
             "reply_to_message_id": null,
             "day": 0,
-            "time": "09:15",
+            "time": "10:30",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@hotelserenity.com",
+            "recipient": "contact@sapphirebayresort.com",
             "cc": [],
-            "subject": "Re: New Year Rewards Program",
-            "body": "Hi team, following up on our New Year Rewards Program campaign. Are you the right contact for this?"
+            "subject": "New Year Rewards Program Inquiry",
+            "body": "Dear Sapphire Bay Resort Team,\n\nWe are writing to inquire about potential collaboration opportunities for our New Year Rewards Program. We are interested in partnering with your esteemed establishment to offer exclusive discounts and amenities to our members during the period of January 10th to January 15th, 2024.  We are particularly interested in your Deluxe Ocean View rooms and access to the Coral Conference Hall for a potential small event. Could you please provide us with information on your pricing and availability for this period?\n\nThank you for your time and consideration.\n\nSincerely,\nJohn Smith\nMarketing Manager\nYour Company"
         },
         {
             "message_id": "msg_02",
             "reply_to_message_id": "msg_01",
-            "day": 0,
-            "time": "14:30",
-            "sender": "contact@hotelserenity.com",
+            "day": 1,
+            "time": "14:45",
+            "sender": "contact@sapphirebayresort.com",
             "recipient": "Your Email Reply Team",
             "cc": [],
-            "subject": "Re: Re: New Year Rewards Program",
-            "body": "Yes, I am.  Thanks for reaching out!"
+            "subject": "Re: New Year Rewards Program Inquiry",
+            "body": "Dear John Smith,\n\nThank you for your interest in partnering with Sapphire Bay Resort for your New Year Rewards Program. We appreciate your inquiry.\n\nUnfortunately, we are currently undergoing renovations in the main building from January 10th to January 15th, 2024, impacting the availability of the Coral Conference Hall and some of our Deluxe Ocean View rooms. We apologize for any inconvenience this may cause.\n\nWe would be happy to discuss alternative dates or perhaps offer you the same benefits at our sister property, the Emerald Coast Inn, which is just a short drive away and offers similar amenities.  They have availability throughout January.\n\nPlease let us know if you would like to discuss these options further.\n\nSincerely,\nMaria Hernandez\nSales Manager\nSapphire Bay Resort"
         },
         {
             "message_id": "msg_03",
             "reply_to_message_id": "msg_02",
-            "day": 0,
-            "time": "15:00",
+            "day": 1,
+            "time": "15:15",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@hotelserenity.com",
-            "cc": [],
-            "subject": "Re: Re: Re: New Year Rewards Program",
-            "body": "Great! We're looking to partner for the New Year's period, December 28th - January 2nd."
+            "recipient": "contact@sapphirebayresort.com",
+            "cc": "jane.doe@yourcompany.com",
+            "subject": "Re: Re: New Year Rewards Program Inquiry",
+            "body": "Dear Maria Hernandez,\n\nThank you for your prompt response and we apologize for the oversight regarding the renovations.  We appreciate the offer of alternative dates and the suggestion of the Emerald Coast Inn.\n\nCould you please provide us with information regarding pricing and availability at the Emerald Coast Inn for the same period (Jan 10th-15th)?  We are particularly interested in their equivalent of the Deluxe Ocean View rooms and any available conference facilities.\n\nThanks again for your assistance.\n\nSincerely,\nJohn Smith\nMarketing Manager\nYour Company"
         },
         {
             "message_id": "msg_04",
             "reply_to_message_id": "msg_03",
-            "day": 1,
-            "time": "10:45",
-            "sender": "contact@hotelserenity.com",
+            "day": 2,
+            "time": "11:00",
+            "sender": "contact@sapphirebayresort.com",
             "recipient": "Your Email Reply Team",
-            "cc": [],
-            "subject": "Re: Re: Re: Re: New Year Rewards Program",
-            "body": "I'm so sorry, but we'll be undergoing renovations during that period.  We expect significant disruption."
-        },
-        {
-            "message_id": "msg_05",
-            "reply_to_message_id": "msg_04",
-            "day": 1,
-            "time": "11:15",
-            "sender": "Your Email Reply Team",
-            "recipient": "contact@hotelserenity.com",
-            "cc": [],
-            "subject": "Re: Re: Re: Re: Re: New Year Rewards Program",
-            "body": "Oh dear, that's unfortunate.  Could we explore alternative dates? Perhaps the week before or after?"
-        },
-        {
-            "message_id": "msg_06",
-            "reply_to_message_id": "msg_05",
-            "day": 1,
-            "time": "12:00",
-            "sender": "contact@hotelserenity.com",
-            "recipient": "Your Email Reply Team",
-            "cc": [],
-            "subject": "Re: Re: Re: Re: Re: Re: New Year Rewards Program",
-            "body": "Let me check.  Alternatively, our sister property, Hotel Tranquility, is available and has similar amenities. Would you be open to that option?"
-        },
-        {
-            "message_id": "msg_07",
-            "reply_to_message_id": "msg_06",
-            "day": 1,
-            "time": "13:30",
-            "sender": "Your Email Reply Team",
-            "recipient": "contact@hotelserenity.com",
-            "cc": [],
-            "subject": "Re: Re: Re: Re: Re: Re: Re: New Year Rewards Program",
-            "body": "We'll consider both options. Thanks for your prompt response and understanding."
+            "cc": "peter.jones@sapphirebayresort.com",
+            "subject": "Re: Re: Re: New Year Rewards Program Inquiry",
+            "body": "Dear John Smith and Jane Doe,\n\nI've cc'd Peter Jones, our Emerald Coast Inn liaison, who can provide you with the specific details you requested. He will be in touch shortly with pricing and availability.\n\nSincerely,\nMaria Hernandez\nSales Manager\nSapphire Bay Resort"
         }
     ]
 }

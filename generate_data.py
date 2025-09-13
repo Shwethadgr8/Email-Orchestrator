@@ -1,4 +1,3 @@
-# data.py
 import os
 import json
 import google.generativeai as genai
@@ -21,12 +20,12 @@ def configure_api():
         return None
 
 def main():
-    """Main function to generate varied and realistic hotel email threads."""
+    """Main function to generate varied, realistic, and labeled hotel email threads."""
     model = configure_api()
     if not model:
         return
 
-    # --- Add lists for dynamic content generation ---
+    # --- Lists for dynamic content generation ---
     hotel_names = [
         "The Majestic Pearl", "Sunset Vista Hotel", "Emerald Plaza", "Crimson Peaks Lodge",
         "Hotel Serenity", "The Royal Crest", "Sapphire Bay Resort", "Oakhaven Inn"
@@ -37,7 +36,6 @@ def main():
     ]
     
     scenario_paths = [
-        # (Your 7 scenarios remain the same)
         {"name": "Confirmation_Path", "description": "A straightforward conversation where the hotel manager quickly confirms interest and availability, leading to a successful outcome with minimal back-and-forth."},
         {"name": "Objection_Path_Pricing", "description": "The hotel manager replies that the proposed rates are too low for the season. The thread shows a negotiation attempt from the client team to address the price objection."},
         {"name": "Escalation_Path_To_Manager", "description": "The initial contact (e.g., front desk) is not authorized to handle corporate rates and escalates the request by forwarding the thread to a senior Sales Manager, who then takes over."},
@@ -47,7 +45,7 @@ def main():
         {"name": "Multi_Reply_Contact_Path_Updates", "description": "The same sales manager replies multiple times in the thread. First, they ask for details. Then, a few hours later, they reply again with another question or an update before the client has even responded to the first message."}
     ]
     
-    variants_per_scenario = 1 
+    variants_per_scenario = 2
     total_to_generate = len(scenario_paths) * variants_per_scenario
     output_dir = "hotel_scenario_data"
     os.makedirs(output_dir, exist_ok=True)
@@ -57,49 +55,46 @@ def main():
     for scenario in scenario_paths:
         for i in range(variants_per_scenario):
             generated_count += 1
-            
-            # --- MODIFIED: Select random elements for this thread ---
             selected_hotel = random.choice(hotel_names)
             selected_topic = random.choice(campaign_topics)
             hotel_email_domain = selected_hotel.lower().replace(" ", "").replace("the", "") + ".com"
-            # --- END MODIFIED ---
 
             print(f"Generating thread {generated_count} of {total_to_generate}: {scenario['name']} for {selected_hotel}")
             
-            # --- MODIFIED: The prompt is now an f-string using the dynamic variables ---
+            # --- NEW ADVANCED PROMPT ---
             prompt = f"""
-            You are an expert synthetic data generator. Your task is to create a single, valid JSON object representing a multi-turn email thread.
+            You are an expert synthetic data generator. Your task is to create a single, valid JSON object representing a realistic, complex, multi-turn email thread.
             DO NOT output any text or markdown formatting before or after the JSON object.
 
-            - The thread should be a realistic length for the scenario, anywhere from 3 to 8 emails.
-            - The hotel's name for this scenario is: "{selected_hotel}".
-            - The campaign topic for this scenario is: "{selected_topic}".
+            **Core Instructions:**
+            1.  **Behavior Label:** The root of the JSON must include a "behavior_label" field with the value: "{scenario['name']}". This is the ground truth.
+            2.  **Realism:** Emails must have a professional tone and include realistic details like professional signatures (e.g., "John Doe, Sales Manager, [Hotel Name]"). Mention hotel-specific details (e.g., room types, amenities, conference hall names) where appropriate for "{selected_hotel}".
+            3.  **Timestamps:** Ensure timestamps are realistic and incremental, showing logical delays between replies (minutes for quick replies, hours or days for considered responses).
+            4.  **Complexity:** The conversation should realistically reflect the scenario: "{scenario['description']}". Use "reply_to_message_id" to show complex threading (e.g., someone replying to an older message). Use the "cc" field where logical (e.g., when adding a manager).
+            5.  **Dynamic Initial Email:** The first message should be a realistic initial outreach for the campaign topic: "{selected_topic}".
 
-            Scenario to Simulate: {scenario['description']}
-
-            Your output MUST be a JSON object with the following structure:
+            **Output JSON Structure:**
             {{
-              "scenario_name": "{scenario['name']}",
-              "scenario_description": "{scenario['description']}",
+              "behavior_label": "{scenario['name']}",
               "thread": [
                 {{
                   "message_id": "msg_01",
                   "reply_to_message_id": null,
                   "day": 0,
-                  "time": "09:15",
+                  "time": "HH:MM",
                   "sender": "Your Email Reply Team",
                   "recipient": "contact@{hotel_email_domain}",
                   "cc": [],
                   "subject": "Re: {selected_topic}",
-                  "body": "Hi team, following up on our {selected_topic} campaign. Are you the right contact for this?"
+                  "body": "(Your generated realistic email body, including signature)"
                 }}
               ]
             }}
+
             Generate the complete JSON object for the scenario now.
             """
             
             try:
-                # (The rest of the try/except block remains the same)
                 response = model.generate_content(prompt)
                 clean_response_text = response.text.strip().replace("```json", "").replace("```", "")
                 json_data = json.loads(clean_response_text)
@@ -113,8 +108,6 @@ def main():
                 print(f"  !! An error occurred while processing {scenario['name']}: {e}")
 
     print(f"\nData generation complete. {generated_count} files created in '{output_dir}/'.")
-
-
 
 if __name__ == "__main__":
     main()
