@@ -1,6 +1,4 @@
 {
-    "scenario_name": "New_Info_Path_Renovation",
-    "scenario_description": "The hotel contact provides unexpected new information, stating that the hotel will be under renovation during the requested period and offers alternative dates or a sister property.",
     "thread": [
         {
             "message_id": "msg_01",

@@ -1,6 +1,4 @@
 {
-    "scenario_name": "Confirmation_Path",
-    "scenario_description": "A straightforward conversation where the hotel manager quickly confirms interest and availability, leading to a successful outcome with minimal back-and-forth.",
     "thread": [
         {
             "message_id": "msg_01",

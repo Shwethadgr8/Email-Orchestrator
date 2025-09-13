@@ -9,6 +9,10 @@ import operator
 import re
 from langgraph.graph import StateGraph
 from dotenv import load_dotenv
+import pandas as pd 
+import plotly.express as px 
+
+
 load_dotenv()
 
 # ---- Define Custom State Schema ----
@@ -246,7 +250,7 @@ if not st.session_state.logged_in:
 else:
     # ---- Sidebar for Rules ----
     with st.sidebar:
-        st.header("Edit Rules")
+        st.header("📝 Edit Rules")
         st.markdown("Define the default action for each detected behavior.")
         
         rules = load_rules()
@@ -267,7 +271,7 @@ else:
             st.success("Rules saved!", icon="✅")
             
     st.markdown("---") # Adds a visual separator
-    st.header("Inbox Filter")
+    st.header("🗂️ Inbox Filter")
 
     # Get the list of possible behaviors from your rules file
     rules = load_rules()
@@ -285,7 +289,7 @@ else:
 
     # ---- Inbox Tab ----
     with tab_inbox:
-        st.header("Campaign Replies Inbox")
+        st.header("📨 Campaign Replies Inbox")
         # (The rest of your inbox code goes here, unchanged)
         inbox_data = []
         for thread in sample_threads:
@@ -418,11 +422,69 @@ else:
 
         # ---- Decisions Tab ----
         with tab_decisions:
-            st.header("Decision History")
+            st.header("📊 Decision History & Analytics")
+
             try:
                 with open(DECISIONS_FILE, "r") as f:
-                    decisions = json.load(f)
+                    decisions_data = json.load(f)
             except (FileNotFoundError, json.JSONDecodeError):
-                decisions = []
-            st.write(decisions)
-                        
+                decisions_data = []
+
+            if not decisions_data:
+                st.info("No decision history has been recorded yet.")
+            else:
+                # --- Analytics Section ---
+                df = pd.DataFrame(decisions_data)
+                
+                # 1. AI Accuracy Calculation
+                total_decisions = len(df)
+                overridden_decisions = len(df[df['decision'] == 'Overridden'])
+                accuracy = ((total_decisions - overridden_decisions) / total_decisions) * 100 if total_decisions > 0 else 100
+
+                # 2. Behavior Distribution
+                behavior_counts = df['behavior'].value_counts().reset_index()
+                behavior_counts.columns = ['behavior', 'count']
+
+                # Display Metrics and Charts
+                st.subheader("Key Metrics")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.metric(
+                        label="AI Suggestion Accuracy",
+                        value=f"{accuracy:.1f}%",
+                        help="The percentage of AI suggestions that were 'Accepted' by a human."
+                    )
+                with col2:
+                    st.metric(
+                        label="Total Decisions Logged",
+                        value=total_decisions
+                    )
+                
+                st.subheader("Behavior Classification Breakdown")
+                fig = px.pie(
+                    behavior_counts,
+                    names='behavior',
+                    values='count',
+                    title='Distribution of AI-Classified Behaviors',
+                    color_discrete_sequence=px.colors.qualitative.Pastel
+                )
+                st.plotly_chart(fig, use_container_width=True)
+                
+                st.markdown("---")
+
+                # --- Raw Data and Download Section ---
+                st.subheader("📑 Raw Decision Log")
+
+                # Download Button
+                with open(DECISIONS_FILE, "r") as f:
+                    st.download_button(
+                        label="Download Decisions as JSON",
+                        data=f.read(),
+                        file_name="decisions.json",
+                        mime="application/json"
+                    )
+
+                # Display the raw data in an expander
+                with st.expander("View Raw JSON Data"):
+                    st.json(decisions_data)
+                            

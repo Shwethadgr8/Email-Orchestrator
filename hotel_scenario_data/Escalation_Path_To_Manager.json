@@ -1,6 +1,4 @@
 {
-    "scenario_name": "Escalation_Path_To_Manager",
-    "scenario_description": "The initial contact (e.g., front desk) is not authorized to handle corporate rates and escalates the request by forwarding the thread to a senior Sales Manager, who then takes over.",
     "thread": [
         {
             "message_id": "msg_01",

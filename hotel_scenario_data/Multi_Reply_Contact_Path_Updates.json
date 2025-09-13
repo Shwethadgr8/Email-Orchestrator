@@ -1,6 +1,4 @@
 {
-    "scenario_name": "Multi_Reply_Contact_Path_Updates",
-    "scenario_description": "The same sales manager replies multiple times in the thread. First, they ask for details. Then, a few hours later, they reply again with another question or an update before the client has even responded to the first message.",
     "thread": [
         {
             "message_id": "msg_01",

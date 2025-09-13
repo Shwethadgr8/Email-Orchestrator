@@ -1,6 +1,4 @@
 {
-    "scenario_name": "Repeated_Outreach_Path_Ghosting",
-    "scenario_description": "After showing initial interest, the hotel contact goes silent. The thread must show the client team sending at least two follow-up emails over several days before finally getting a response.",
     "thread": [
         {
             "message_id": "msg_01",

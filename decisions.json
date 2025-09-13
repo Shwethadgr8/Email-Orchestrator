@@ -18,12 +18,30 @@
     "timestamp": "2025-09-13T15:16:27.441890"
   },
   {
-    "user": "pooja",
+    "user": "Pooja",
     "thread_id": "Confirmation_Path",
     "behavior": "Confirmation",
     "suggestion": "Mark as confirmed in CRM",
     "decision": "Accepted",
     "comment": null,
-    "timestamp": "2025-09-13T21:24:13.872157"
+    "timestamp": "2025-09-13T22:39:25.900676"
+  },
+  {
+    "user": "Pooja",
+    "thread_id": "Objection_Path_Pricing",
+    "behavior": "Confirmation",
+    "suggestion": "Mark as confirmed in CRM",
+    "decision": "Overridden",
+    "comment": "cancel",
+    "timestamp": "2025-09-13T22:39:34.740033"
+  },
+  {
+    "user": "Pooja",
+    "thread_id": "Escalation_Path_To_Manager",
+    "behavior": "Awaiting Reply",
+    "suggestion": "Set a follow-up reminder for a week",
+    "decision": "Overridden",
+    "comment": "test2",
+    "timestamp": "2025-09-13T22:41:21.951034"
   }
 ]

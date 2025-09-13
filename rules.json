@@ -1,9 +1,9 @@
 {
   "Confirmation": "Mark as confirmed in CRM",
-  "Objection": "Forward to Senior Sales Team",
+  "Objection": "Forward to Manager",
   "Escalation": "Notify Account Manager",
   "New Info": "Update contact/deal info in CRM",
-  "Awaiting Reply": "Set a follow-up reminder for 3 days",
+  "Awaiting Reply": "Set a follow-up reminder for a week",
   "Action Required": "Draft a reply for review",
   "Unknown": "Flag for manual review"
 }

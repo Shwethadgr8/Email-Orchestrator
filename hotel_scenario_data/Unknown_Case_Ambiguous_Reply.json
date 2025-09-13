@@ -1,6 +1,5 @@
 {
-    "scenario_name": "Unknown_Case_Ambiguous_Reply",
-    "scenario_description": "The hotel contact sends a confusing, one-line reply like 'we will look into this.' The thread shows the client team trying to get clarification on the meaning and next steps.",
+
     "thread": [
         {
             "message_id": "msg_01",

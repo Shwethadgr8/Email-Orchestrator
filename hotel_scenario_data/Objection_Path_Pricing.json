@@ -1,6 +1,4 @@
 {
-    "scenario_name": "Objection_Path_Pricing",
-    "scenario_description": "The hotel manager replies that the proposed rates are too low for the season. The thread shows a negotiation attempt from the client team to address the price objection.",
     "thread": [
         {
             "message_id": "msg_01",
