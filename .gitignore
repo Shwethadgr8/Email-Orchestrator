@@ -1,1 +1,12 @@
-.env *.pyc pycache/ *.pyo *.pyd .Python env/ venv/ .idea/ *.log *.cache
+.env
+*.pyc
+pycache/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.idea/
+*.log
+*.cache
