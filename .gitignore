@@ -1,0 +1,1 @@
+.env *.pyc pycache/ *.pyo *.pyd .Python env/ venv/ .idea/ *.log *.cache

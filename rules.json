@@ -1,0 +1,7 @@
+{
+  "Confirmation": "Mark as confirmed in CRM",
+  "Objection": "Forward to Manager",
+  "Escalation": "Escalate to Manager",
+  "New Info": "Update CRM with new information",
+  "Unknown": "Review manually"
+}

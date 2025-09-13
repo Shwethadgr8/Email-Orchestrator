@@ -1,0 +1,20 @@
+[
+  {
+    "user": "shwetha",
+    "thread_id": "C1",
+    "behavior": "New Info",
+    "suggestion": "Update CRM with new information",
+    "decision": "Accepted",
+    "comment": null,
+    "timestamp": "2025-09-13T15:15:55.302274"
+  },
+  {
+    "user": "shwetha",
+    "thread_id": "C2",
+    "behavior": "Escalation",
+    "suggestion": "Escalate to Manager",
+    "decision": "Overridden",
+    "comment": "Testing",
+    "timestamp": "2025-09-13T15:16:27.441890"
+  }
+]
