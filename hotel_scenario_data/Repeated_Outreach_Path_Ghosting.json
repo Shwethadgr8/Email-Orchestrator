@@ -1,59 +1,62 @@
 {
+    "behavior_label": "Repeated_Outreach_Path_Ghosting",
     "thread": [
         {
             "message_id": "msg_01",
             "reply_to_message_id": null,
             "day": 0,
-            "time": "09:15",
+            "time": "14:37",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@sunsetvistahotel.com",
+            "recipient": "contact@emeraldplaza.com",
             "cc": [],
             "subject": "Diwali Discount Offer for Partners",
-            "body": "Dear Sunset Vista Hotel team,\n\nWe're excited to offer you a special Diwali discount on our partner program!  This is a fantastic opportunity to boost your bookings during the peak Diwali season. Please see the attached brochure for details. We'd love to discuss how we can tailor this offer to best suit your needs.\n\nSincerely,\nYour Email Reply Team"
+            "body": "Dear Emerald Plaza Team,\n\nWe hope this email finds you well.\n\nAs a valued partner, we're excited to offer you an exclusive Diwali discount on our marketing campaign services. This offer includes a 20% discount on all packages booked before November 15th,  allowing you to leverage the festive season to boost your bookings for the upcoming holiday season. We can help you target specific demographics and promote your premium rooms (e.g., Executive Suites, Presidential Suites) and unique amenities (e.g., the 'Azure' spa, the 'Grand Ballroom'). \n\nWe've attached a detailed brochure outlining our various packages and discounts.  We'd love to schedule a brief call to discuss how we can tailor a campaign to maximize your Diwali promotions. Please let us know your availability.\n\nSincerely,\nJohn Smith\nMarketing Manager\nYour Email Reply Team"
         },
         {
             "message_id": "msg_02",
             "reply_to_message_id": "msg_01",
-            "day": 2,
-            "time": "14:30",
-            "sender": "contact@sunsetvistahotel.com",
+            "day": 0,
+            "time": "15:02",
+            "sender": "contact@emeraldplaza.com",
             "recipient": "Your Email Reply Team",
             "cc": [],
             "subject": "Re: Diwali Discount Offer for Partners",
-            "body": "Thanks for reaching out!  We'll review this and get back to you."
+            "body": "Thank you for your email. We will review your proposal."
         },
         {
             "message_id": "msg_03",
             "reply_to_message_id": "msg_02",
-            "day": 7,
-            "time": "10:00",
+            "day": 3,
+            "time": "10:45",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@sunsetvistahotel.com",
+            "recipient": "contact@emeraldplaza.com",
             "cc": [],
             "subject": "Re: Diwali Discount Offer for Partners",
-            "body": "Hi team,\nJust checking in to see if you had a chance to review the Diwali offer.  Let us know if you have any questions."
+            "body": "Good morning,\n\nWe hope you had a chance to review our Diwali discount offer. We understand you're busy, but we wanted to follow up and see if you had any questions or if there's a specific time that works best for a brief call to discuss your needs and how we can best support Emerald Plaza's marketing goals during this peak season.\n\nBest regards,\nJohn Smith\nMarketing Manager\nYour Email Reply Team"
         },
         {
             "message_id": "msg_04",
             "reply_to_message_id": "msg_03",
-            "day": 10,
-            "time": "11:45",
+            "day": 7,
+            "time": "14:12",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@sunsetvistahotel.com",
-            "cc": [],
-            "subject": "Re: Diwali Discount Offer for Partners",
-            "body": "Following up again on our Diwali Discount Offer. We understand you're busy, but we'd really appreciate the opportunity to discuss how this could benefit Sunset Vista Hotel."
+            "recipient": "contact@emeraldplaza.com",
+            "cc": [
+                "JaneDoe@YourEmailReplyTeam.com"
+            ],
+            "subject": "Following up: Diwali Discount Offer for Partners",
+            "body": "Hi Emerald Plaza Team,\n\nWe're following up on our previous emails regarding the Diwali discount offer. We're confident that our services can significantly boost your bookings during this important period.  We've had success with similar campaigns for other hotels, particularly in promoting their conference facilities (like the 'Emerald Hall' at Emerald Plaza) and special packages for Diwali celebrations.\n\nCould you please let us know if you're interested in discussing this further?  We're happy to answer any questions you may have.\n\nThanks,\nJohn Smith, Marketing Manager\nJane Doe, Senior Account Manager\nYour Email Reply Team"
         },
         {
             "message_id": "msg_05",
             "reply_to_message_id": "msg_04",
-            "day": 14,
-            "time": "15:20",
-            "sender": "contact@sunsetvistahotel.com",
+            "day": 10,
+            "time": "11:53",
+            "sender": "contact@emeraldplaza.com",
             "recipient": "Your Email Reply Team",
             "cc": [],
-            "subject": "Re: Diwali Discount Offer for Partners",
-            "body": "Apologies for the delay.  We're interested in learning more.  Please schedule a brief call next week."
+            "subject": "Re: Following up: Diwali Discount Offer for Partners",
+            "body": "Apologies for the delayed response.  Yes, we are interested in discussing this further. Please contact us next week to schedule a call."
         }
     ]
 }

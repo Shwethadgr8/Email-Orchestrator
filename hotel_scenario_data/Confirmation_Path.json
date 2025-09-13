@@ -1,81 +1,40 @@
 {
+    "behavior_label": "Confirmation_Path",
     "thread": [
         {
             "message_id": "msg_01",
             "reply_to_message_id": null,
             "day": 0,
-            "time": "09:15",
+            "time": "14:37",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@majesticpearl.com",
+            "recipient": "contact@emeraldplaza.com",
             "cc": [],
-            "subject": "New Year Rewards Program",
-            "body": "Dear Majestic Pearl Team,\n\nWe are writing to you today to introduce our exciting New Year Rewards Program.  We believe this program would be a perfect fit for your esteemed establishment and would greatly benefit your guests.\n\nWould you be interested in learning more?"
+            "subject": "Summer Weekend Deal for Teams",
+            "body": "Dear Emerald Plaza Team,\n\nWe are writing to inquire about your availability for our \"Summer Weekend Deal for Teams\" campaign.  We are a group of 20 and are interested in booking a weekend stay (Friday-Sunday, July 21st-23rd) at your hotel. We'd appreciate it if you could let us know the availability of your Deluxe Suites, including information on rates and any applicable conference room packages (ideally the 'Grand Ballroom').\n\nThank you for your time and consideration.\n\nSincerely,\nThe [Your Company Name] Team"
         },
         {
             "message_id": "msg_02",
             "reply_to_message_id": "msg_01",
             "day": 0,
-            "time": "10:03",
-            "sender": "contact@majesticpearl.com",
+            "time": "14:48",
+            "sender": "contact@emeraldplaza.com",
             "recipient": "Your Email Reply Team",
-            "cc": [],
-            "subject": "Re: New Year Rewards Program",
-            "body": "Good morning!\n\nYes, we are interested in learning more about your New Year Rewards Program. Please provide more details."
+            "cc": [
+                "manager@emeraldplaza.com"
+            ],
+            "subject": "Re: Summer Weekend Deal for Teams",
+            "body": "Dear [Your Company Name] Team,\n\nThank you for your interest in Emerald Plaza. We do have availability for Deluxe Suites for the weekend of July 21st-23rd. We can accommodate your group of 20 comfortably. \n\nThe Grand Ballroom is also available for your use during this period.  I've attached a detailed quote outlining rates for the suites and conference room package, including any applicable discounts for group bookings.\n\nPlease let me know if you have any questions.\n\nSincerely,\nJohn Smith, Reservations Manager, Emerald Plaza Hotel"
         },
         {
             "message_id": "msg_03",
             "reply_to_message_id": "msg_02",
-            "day": 0,
-            "time": "10:45",
-            "sender": "Your Email Reply Team",
-            "recipient": "contact@majesticpearl.com",
-            "cc": [],
-            "subject": "Re: New Year Rewards Program",
-            "body": "Certainly!  Please find an attached document outlining the program details, benefits, and participation requirements.  We're available for a call to answer any questions you may have."
-        },
-        {
-            "message_id": "msg_04",
-            "reply_to_message_id": "msg_03",
-            "day": 0,
-            "time": "11:12",
-            "sender": "contact@majesticpearl.com",
-            "recipient": "Your Email Reply Team",
-            "cc": [],
-            "subject": "Re: New Year Rewards Program",
-            "body": "Thank you! We've received the document and will review it thoroughly. We'll be in touch shortly to schedule a call."
-        },
-        {
-            "message_id": "msg_05",
-            "reply_to_message_id": "msg_04",
-            "day": 1,
-            "time": "09:30",
-            "sender": "Your Email Reply Team",
-            "recipient": "contact@majesticpearl.com",
-            "cc": [],
-            "subject": "Re: New Year Rewards Program",
-            "body": "Sounds good! Looking forward to hearing from you."
-        },
-        {
-            "message_id": "msg_06",
-            "reply_to_message_id": "msg_05",
             "day": 1,
             "time": "10:15",
-            "sender": "contact@majesticpearl.com",
-            "recipient": "Your Email Reply Team",
-            "cc": [],
-            "subject": "Re: New Year Rewards Program",
-            "body": "We've reviewed the program and are very interested in participating.  Let's schedule a call for tomorrow at 2 PM your time to finalize the agreement."
-        },
-        {
-            "message_id": "msg_07",
-            "reply_to_message_id": "msg_06",
-            "day": 1,
-            "time": "10:22",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@majesticpearl.com",
+            "recipient": "contact@emeraldplaza.com",
             "cc": [],
-            "subject": "Re: New Year Rewards Program",
-            "body": "Perfect!  Tomorrow at 2 PM works for us.  We'll send a calendar invite shortly."
+            "subject": "Re: Re: Summer Weekend Deal for Teams",
+            "body": "Dear John Smith,\n\nThank you for the prompt response and the detailed quote.  We are very pleased with the offer and would like to proceed with the booking. Please let us know the next steps.\n\nSincerely,\nThe [Your Company Name] Team"
         }
     ]
 }

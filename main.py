@@ -187,29 +187,41 @@ def classify_behavior(state: CustomState):
 # (Inside your classify_behavior function)
 
     prompt = f"""
-    You are an expert email thread analyst for a hotel outreach campaign. Your goal is to understand the complete state of a conversation and classify it to help a human decide on the next action.
+    You are an expert email thread analyst. Your goal is to determine the primary business outcome or state of a conversation by following the user's instructions precisely.
 
-    Follow these steps very carefully:
-    1.  **Summarize:** Read the entire conversation from start to finish and mentally summarize the key events.
-    2.  **Identify the Current State:** Determine the most recent significant action. Who is expected to act next? For example, are we waiting for a proposal from them, or are they waiting for information from us?
-    3.  **Classify:** Based on the current state, classify the thread's overall behavior into ONE of the following categories:
-        - **Confirmation:** The hotel has clearly agreed to the deal or is ready to sign.
-        - **Objection:** The hotel has raised a clear blocker (e.g., price, availability, terms).
-        - **Escalation:** The conversation was passed to a new, more senior contact.
-        - **New Info:** The hotel provided new, unexpected information (e.g., renovations, contact change).
-        - **Awaiting Reply:** We have asked a question or sent a proposal and are waiting for the hotel to reply.
-        - **Action Required:** The hotel has asked us a question and is waiting for our response.
-        - **Unknown:** The intent is genuinely unclear or the conversation is stuck.
-    4.  **Reason:** Provide a concise, one-sentence reason for your classification that explains the current situation.
+    Follow these steps:
+    1.  **Analyze the Theme:** Read the entire conversation and identify its main purpose (e.g., negotiation, inquiry, closing a deal).
+    2.  **Determine the Outcome:** What is the most significant conclusion or current state of the thread? Prioritize the main business outcome over simple turn-taking.
+    3.  **Classify:** Based on this analysis, choose the BEST single category from the list below:
+        - **Confirmation:** The hotel has clearly and definitively agreed to the deal. The negotiation is successfully over.
+        - **Objection:** The hotel has raised a significant problem (like price or availability) that is currently blocking the deal.
+        - **Escalation:** The primary contact has changed because the conversation was passed to a person with more authority.
+        - **New Info:** The hotel has provided new, unexpected information that changes the context of the deal (e.g., renovations).
+        - **Awaiting Reply:** We are waiting for a response from the hotel to a question or proposal we have sent. (Only use this if no other major outcome fits).
+        - **Action Required:** The hotel has asked us a direct question and is waiting for our response. (Only use this if no other major outcome fits).
+        - **Unknown:** The intent of the conversation is genuinely unclear.
+    4.  **Reason:** Provide a concise, one-sentence reason for your classification.
+
+    ---
+    **Here is a perfect example of how to do this:**
 
     Conversation History:
+    "Your Email Reply Team: Hi, we'd like to book a block of 20 rooms for our corporate event from Oct 10-12 at your proposed rate of $150/night.
+    sales@hotel.com: Thanks for reaching out. Unfortunately, due to a city-wide conference that week, our rate for those dates is firm at $220/night."
+
+    Your JSON Output:
+    {{
+      "behavior": "Objection",
+      "reason": "The hotel has objected to the proposed price and countered with a higher rate."
+    }}
+    ---
+
+    Now, analyze the following real conversation and provide the output in the same JSON format.
+
+    **Real Conversation History:**
     {all_text}
 
-    Output your final analysis in a valid JSON format ONLY:
-    {{
-      "behavior": "<The category from Step 3>",
-      "reason": "<Your one-sentence reason from Step 4>"
-    }}
+    **Output JSON ONLY:**
     """
     resp = llm.invoke(prompt)
     parsed = parse_model_response(resp.content)

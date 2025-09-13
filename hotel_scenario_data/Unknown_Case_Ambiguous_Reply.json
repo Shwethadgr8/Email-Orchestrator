@@ -1,73 +1,64 @@
 {
-
+    "behavior_label": "Unknown_Case_Ambiguous_Reply",
     "thread": [
         {
             "message_id": "msg_01",
             "reply_to_message_id": null,
             "day": 0,
-            "time": "09:15",
+            "time": "14:37",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@oakhaveninn.com",
+            "recipient": "contact@royalcrest.com",
             "cc": [],
-            "subject": "Re: Exclusive Holiday Event Package",
-            "body": "Hi team, following up on our Exclusive Holiday Event Package campaign. Are you the right contact for this?"
+            "subject": "New Year Rewards Program Inquiry",
+            "body": "Dear Royal Crest Hotel Team,\n\nOur company, 'RewardsPlus', is interested in partnering with The Royal Crest Hotel for our upcoming New Year Rewards Program. We're particularly interested in offering exclusive deals to your valued guests for stays in your Deluxe Suites and access to The Grand Ballroom for corporate events.  Could you please provide us with information on your potential interest and contact person for this collaboration?\n\nThank you for your time and consideration.\n\nSincerely,\nSarah Chen\nMarketing Manager\nRewardsPlus"
         },
         {
             "message_id": "msg_02",
             "reply_to_message_id": "msg_01",
             "day": 0,
-            "time": "10:30",
-            "sender": "contact@oakhaveninn.com",
+            "time": "15:02",
+            "sender": "contact@royalcrest.com",
             "recipient": "Your Email Reply Team",
             "cc": [],
-            "subject": "Re: Re: Exclusive Holiday Event Package",
+            "subject": "Re: New Year Rewards Program Inquiry",
             "body": "We will look into this."
         },
         {
             "message_id": "msg_03",
             "reply_to_message_id": "msg_02",
             "day": 0,
-            "time": "11:00",
+            "time": "15:09",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@oakhaveninn.com",
-            "cc": [],
-            "subject": "Re: Re: Re: Exclusive Holiday Event Package",
-            "body": "Thank you for your reply.  Could you please clarify what 'look into this' means?  What are the next steps?"
+            "recipient": "contact@royalcrest.com",
+            "cc": [
+                "john.doe@rewardsplus.com"
+            ],
+            "subject": "Re: Re: New Year Rewards Program Inquiry",
+            "body": "Thank you for your prompt response.  Could you please clarify what \"look into this\" entails?  What are the next steps and who will be our point of contact for this inquiry? We're eager to discuss potential collaboration further.\n\nSincerely,\nSarah Chen\nMarketing Manager\nRewardsPlus"
         },
         {
             "message_id": "msg_04",
             "reply_to_message_id": "msg_03",
             "day": 1,
-            "time": "08:45",
-            "sender": "contact@oakhaveninn.com",
+            "time": "10:45",
+            "sender": "contact@royalcrest.com",
             "recipient": "Your Email Reply Team",
             "cc": [],
-            "subject": "Re: Re: Re: Re: Exclusive Holiday Event Package",
-            "body": "I've forwarded your email to the appropriate department. They will be in touch shortly."
+            "subject": "Re: Re: Re: New Year Rewards Program Inquiry",
+            "body": "I've forwarded your email to the relevant department.  They will be in touch soon."
         },
         {
             "message_id": "msg_05",
             "reply_to_message_id": "msg_04",
             "day": 1,
-            "time": "14:20",
+            "time": "11:12",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@oakhaveninn.com",
-            "cc": [],
-            "subject": "Re: Re: Re: Re: Re: Exclusive Holiday Event Package",
-            "body": "Great, thank you for the update.  Please let me know if there's anything else we can provide to expedite this process."
-        },
-        {
-            "message_id": "msg_06",
-            "reply_to_message_id": "msg_05",
-            "day": 2,
-            "time": "10:00",
-            "sender": "sales@oakhaveninn.com",
-            "recipient": "Your Email Reply Team",
+            "recipient": "contact@royalcrest.com",
             "cc": [
-                "contact@oakhaveninn.com"
+                "john.doe@rewardsplus.com"
             ],
-            "subject": "Re: Re: Re: Re: Re: Re: Exclusive Holiday Event Package",
-            "body": "Hello!  My apologies for the delay.  We're happy to discuss your Holiday Event Package.  Please call me at 555-1212 to discuss options."
+            "subject": "Re: Re: Re: Re: New Year Rewards Program Inquiry",
+            "body": "Thank you.  Please let us know the expected timeframe for a response.  We appreciate your assistance.\n\nSincerely,\nSarah Chen\nMarketing Manager\nRewardsPlus"
         }
     ]
 }

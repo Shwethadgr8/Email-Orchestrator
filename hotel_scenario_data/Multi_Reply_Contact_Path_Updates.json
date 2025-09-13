@@ -1,70 +1,55 @@
 {
+    "behavior_label": "Multi_Reply_Contact_Path_Updates",
     "thread": [
         {
             "message_id": "msg_01",
             "reply_to_message_id": null,
             "day": 0,
-            "time": "09:15",
+            "time": "10:30",
             "sender": "Your Email Reply Team",
-            "recipient": "contact@royalcrest.com",
+            "recipient": "contact@emeraldplaza.com",
             "cc": [],
-            "subject": "Summer Weekend Deal for Teams",
-            "body": "Hi team, we're excited to offer you our Summer Weekend Deal for Teams!  Could you provide some details about your team's needs and size?"
+            "subject": "New Year Rewards Program for Emerald Plaza",
+            "body": "Dear Emerald Plaza Team,\n\nWe're excited to offer you our exclusive New Year Rewards Program designed to boost your bookings in 2024.  This program offers significant benefits and tailored marketing support. To learn more about how this program can benefit Emerald Plaza, including customized options for your Deluxe and Premier Suites, please reply to this email.\n\nSincerely,\nJohn Doe\nSales Manager\nYour Email Reply Team"
         },
         {
             "message_id": "msg_02",
             "reply_to_message_id": "msg_01",
             "day": 0,
-            "time": "11:45",
-            "sender": "Your Email Reply Team",
-            "recipient": "contact@royalcrest.com",
-            "cc": [],
-            "subject": "Re: Summer Weekend Deal for Teams",
-            "body": "Just checking in!  To help us tailor the perfect package, could you also let us know your preferred dates for your weekend getaway?"
+            "time": "11:15",
+            "sender": "John Doe",
+            "recipient": "contact@emeraldplaza.com",
+            "cc": [
+                "jane.doe@youremailreplyteam.com"
+            ],
+            "subject": "Re: New Year Rewards Program for Emerald Plaza",
+            "body": "Good morning!\n\nCould you please clarify your current occupancy rates for December and January? This will help us tailor the most effective rewards package for Emerald Plaza.  Also, could you let us know the name of your primary contact for this program?\n\nThanks,\nJohn Doe\nSales Manager\nYour Email Reply Team"
         },
         {
             "message_id": "msg_03",
             "reply_to_message_id": "msg_02",
-            "day": 1,
-            "time": "10:30",
-            "sender": "contact@royalcrest.com",
-            "recipient": "Your Email Reply Team",
-            "cc": [],
-            "subject": "Re: Summer Weekend Deal for Teams",
-            "body": "Hi there, Yes, I'm the right contact. We have a team of 12 and are flexible on dates, ideally sometime in August."
+            "day": 0,
+            "time": "14:45",
+            "sender": "John Doe",
+            "recipient": "contact@emeraldplaza.com",
+            "cc": [
+                "jane.doe@youremailreplyteam.com"
+            ],
+            "subject": "Re: New Year Rewards Program for Emerald Plaza",
+            "body": "Just a quick follow-up.  Understanding your current promotional strategies for the conference hall, the 'Grand Ballroom', would also be beneficial in crafting the most impactful New Year Rewards Program for Emerald Plaza.  Let me know when you have a moment.\n\nBest regards,\nJohn Doe\nSales Manager\nYour Email Reply Team"
         },
         {
             "message_id": "msg_04",
             "reply_to_message_id": "msg_03",
             "day": 1,
-            "time": "14:15",
-            "sender": "Your Email Reply Team",
-            "recipient": "contact@royalcrest.com",
-            "cc": [],
-            "subject": "Re: Summer Weekend Deal for Teams",
-            "body": "Great!  We have several options that would suit a team of 12 in August.  Could you tell me your budget range?"
-        },
-        {
-            "message_id": "msg_05",
-            "reply_to_message_id": "msg_04",
-            "day": 2,
-            "time": "09:00",
-            "sender": "contact@royalcrest.com",
-            "recipient": "Your Email Reply Team",
-            "cc": [],
-            "subject": "Re: Summer Weekend Deal for Teams",
-            "body": "Our budget is approximately $5,000."
-        },
-        {
-            "message_id": "msg_06",
-            "reply_to_message_id": "msg_05",
-            "day": 2,
-            "time": "11:00",
-            "sender": "Your Email Reply Team",
-            "recipient": "contact@royalcrest.com",
-            "cc": [],
-            "subject": "Re: Summer Weekend Deal for Teams",
-            "body": "Fantastic!  I'll put together a customized proposal based on your requirements and send it over by end of day."
+            "time": "10:00",
+            "sender": "contact@emeraldplaza.com",
+            "recipient": "John Doe",
+            "cc": [
+                "jane.doe@youremailreplyteam.com"
+            ],
+            "subject": "Re: New Year Rewards Program for Emerald Plaza",
+            "body": "Good morning John,\n\nApologies for the delay.  Our occupancy rates for December and January are approximately 70% and 60%, respectively. Our primary contact for this program is Sarah Jones, our Marketing Manager.  We are currently running a special offer on our Executive Suites.  We will be happy to provide you with more details.\n\nRegards,\nSarah Jones\nMarketing Manager\nEmerald Plaza"
         }
     ]
 }
