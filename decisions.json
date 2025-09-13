@@ -43,5 +43,14 @@
     "decision": "Overridden",
     "comment": "test2",
     "timestamp": "2025-09-13T22:41:21.951034"
+  },
+  {
+    "user": "gaurav",
+    "thread_id": "Confirmation_Path.json",
+    "behavior": "Confirmation",
+    "suggestion": "Mark as confirmed in CRM",
+    "decision": "Accepted",
+    "comment": null,
+    "timestamp": "2025-09-14T00:50:27.596255"
   }
 ]

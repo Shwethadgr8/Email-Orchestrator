@@ -15,6 +15,78 @@ import plotly.express as px
 
 load_dotenv()
 
+# ---- Feedback and Comment Storage ----
+FEEDBACK_FILE = "feedback.json"
+if not os.path.exists(FEEDBACK_FILE):
+    with open(FEEDBACK_FILE, "w") as f:
+        json.dump([], f)
+
+def store_feedback(thread_id, ai_response, user_feedback, comment, overridden=False):
+    try:
+        with open(FEEDBACK_FILE, "r") as f:
+            feedback_data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        feedback_data = []
+
+    entry = {
+        "thread_id": thread_id,
+        "ai_response": ai_response,
+        "user_feedback": user_feedback,
+        "comment": comment,
+        "overridden": overridden,
+        "timestamp": datetime.now().isoformat()
+    }
+
+    # Check if feedback for this thread already exists
+    for i, fb in enumerate(feedback_data):
+        if fb["thread_id"] == thread_id:
+            feedback_data[i] = entry
+            break
+    else:
+        feedback_data.append(entry)
+
+    with open(FEEDBACK_FILE, "w") as f:
+        json.dump(feedback_data, f, indent=2)
+
+# ---- Draft Email Suggestion Helper ----
+def suggest_draft_email(conversation, behavior, tone="auto"):
+    """
+    Suggest a polite, context-appropriate draft email based on conversation and behavior.
+    """
+    if tone == "auto":
+        if behavior in ["Confirmation", "Escalation"]:
+            tone = "professional"
+        elif behavior in ["Objection", "New Info", "Action Required"]:
+            tone = "concise"
+        else:
+            tone = "friendly"
+
+    # Simple template logic (can be replaced with LLM call for more advanced suggestions)
+    if behavior == "Confirmation":
+        draft = "Thank you for your confirmation. We look forward to working with you. Please let us know if you need any further information."
+    elif behavior == "Objection":
+        draft = "Thank you for sharing your concerns. We appreciate your feedback and would be happy to discuss possible solutions or adjustments. Please let us know how we can address your objections."
+    elif behavior == "Escalation":
+        draft = "Thank you for escalating this matter. We will review the details and get back to you as soon as possible. If you have any additional information, please share it with us."
+    elif behavior == "New Info":
+        draft = "Thank you for providing this new information. We will update our records accordingly. Please let us know if there is anything else we should be aware of."
+    elif behavior == "Action Required":
+        draft = "Thank you for your message. We will take the necessary action and update you soon. If you have any further questions, please let us know."
+    elif behavior == "Awaiting Reply":
+        draft = "Just following up on our previous conversation. Please let us know if you have any updates or questions."
+    else:
+        draft = "Thank you for your message. Please let us know how we can assist you further."
+
+    # Add polite closing
+    if tone == "professional":
+        closing = "Best regards,\nYour Email Reply Team"
+    elif tone == "concise":
+        closing = "Regards,\nYour Email Reply Team"
+    else:
+        closing = "Thanks!\nYour Email Reply Team"
+
+    return f"{draft}\n\n{closing}"
+
 # ---- Define Custom State Schema ----
 class CustomState(TypedDict):
     messages: Annotated[list[AnyMessage], operator.add]
@@ -357,6 +429,28 @@ else:
                             with st.chat_message(role):
                                 st.markdown(f"**From:** {sender}")
                                 st.write(body)
+
+                    # --- ROW 2.5: Editable Draft Email Suggestion ---
+                    st.markdown("**Draft Email Suggestion:**")
+                    draft_key = f"draft_{row['thread_id']}"
+                    default_draft = suggest_draft_email(row["messages"], row["behavior"])
+                    draft_text = st.text_area(
+                        "Edit the draft before sending:",
+                        value=default_draft,
+                        key=draft_key,
+                        height=120,
+                        label_visibility="collapsed"
+                    )
+                    if st.button("Save Feedback & Draft", key=f"save_feedback_{row['thread_id']}"):
+                        # Store feedback and draft for fine-tuning
+                        store_feedback(
+                            row["thread_id"],
+                            ai_response=row["reason"],
+                            user_feedback=draft_text,
+                            comment=st.session_state.get(f"comment_{row['thread_id']}", ""),
+                            overridden=st.session_state.get(f"saved_{row['thread_id']}", False)
+                        )
+                        st.success("Feedback and draft saved for this thread.")
                     
                     # --- ROW 3: Action Buttons and Status ---
                     key_accept = f"accept_{row['thread_id']}"
@@ -419,6 +513,16 @@ else:
                             if st.button("Clear", key=f"clear_{row['thread_id']}"):
                                 del st.session_state[f"saved_{row['thread_id']}"]
                                 st.rerun()
+
+        # ---- Feedback Tab (Optional) ----
+        # You can add a feedback review tab if desired
+        # with st.expander("View Feedback Log"):
+        #     try:
+        #         with open(FEEDBACK_FILE, "r") as f:
+        #             feedback_data = json.load(f)
+        #     except (FileNotFoundError, json.JSONDecodeError):
+        #         feedback_data = []
+        #     st.json(feedback_data)
 
         # ---- Decisions Tab ----
         with tab_decisions:
