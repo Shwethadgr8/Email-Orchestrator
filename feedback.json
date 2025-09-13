@@ -9,11 +9,11 @@
   },
   {
     "thread_id": "Confirmation_Path.json",
-    "ai_response": "The hotel has agreed to participate in the program and scheduled a call to finalize the agreement.",
-    "user_feedback": "Thank you for your confirmation. We look forward to working with you. Please let us know if you need any further information.\nBest regards,\nYour Email Reply Team",
+    "ai_response": "The customer has accepted the hotel's offer and wants to proceed with the booking, indicating a successful negotiation.",
+    "user_feedback": "Thank you for your confirmation. We look forward to working with you. Please let us know if you need any further information.\n\nBest regards,\nYour Email Reply Team",
     "comment": "",
     "overridden": false,
-    "timestamp": "2025-09-14T01:01:37.781811"
+    "timestamp": "2025-09-14T01:50:04.221380"
   },
   {
     "thread_id": "Escalation_Path_To_Manager.json",
@@ -30,5 +30,13 @@
     "comment": "",
     "overridden": false,
     "timestamp": "2025-09-14T01:01:42.909543"
+  },
+  {
+    "thread_id": "New_Info_Path_Renovation.json",
+    "ai_response": "The conversation has been passed to a new contact, Peter Jones, who is the liaison for the suggested alternative property.",
+    "user_feedback": "Thank you for escalating this matter. We will review the details and get back to you as soon as possible. If you have any additional information, please share it with us.\n\nBest regards,\nYour Email Reply Team",
+    "comment": "",
+    "overridden": false,
+    "timestamp": "2025-09-14T01:52:45.009691"
   }
 ]

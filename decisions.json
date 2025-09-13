@@ -51,6 +51,15 @@
     "suggestion": "Mark as confirmed in CRM",
     "decision": "Accepted",
     "comment": null,
-    "timestamp": "2025-09-14T00:50:27.596255"
+    "timestamp": "2025-09-14T01:50:01.094898"
+  },
+  {
+    "user": "gaurav",
+    "thread_id": "New_Info_Path_Renovation.json",
+    "behavior": "Escalation",
+    "suggestion": "Notify Account Manager",
+    "decision": "Accepted",
+    "comment": null,
+    "timestamp": "2025-09-14T01:52:43.611432"
   }
 ]

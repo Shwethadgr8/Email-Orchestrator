@@ -403,31 +403,38 @@ else:
                 # Create a container for each thread to act as a "card"
                 with st.container(border=True):
                     # --- ROW 1: Key Information ---
-                    col1, col2, col3 = st.columns([2, 1, 2])
+                    col1, col2, col3 = st.columns([2, 1.5, 2])
+                    # --- ROW 1: All info in a single row ---
                     with col1:
-                        # Clean up the participant list for readability
                         participants = row['hotels'].replace(", Your Email Reply Team", "").strip()
-                        st.markdown("**Conversation with:**")
+                        st.markdown("<b>Conversation with:</b>", unsafe_allow_html=True)
                         st.caption(participants)
                     with col2:
-                        # Create colored "badges" for the behavior classification
-                        behavior = row['behavior']
-                        if behavior == "Confirmation":
+                        ai_behavior = row['behavior']
+                        st.markdown(f"<b>AI:</b> {ai_behavior}", unsafe_allow_html=True)
+                        all_behaviors = list(rules.keys())
+                        behavior_key = f"behavior_select_{row['thread_id']}"
+                        if behavior_key not in st.session_state:
+                            st.session_state[behavior_key] = ai_behavior
+                        selected_behavior = st.selectbox(
+                            "Manual Behavior",
+                            options=all_behaviors,
+                            index=all_behaviors.index(st.session_state[behavior_key]) if st.session_state[behavior_key] in all_behaviors else 0,
+                            key=behavior_key
+                        )
+                        if selected_behavior == "Confirmation":
                             badge_color = "green"
-                        elif behavior in ["Objection", "Escalation"]:
+                        elif selected_behavior in ["Objection", "Escalation"]:
                             badge_color = "red"
-                        elif behavior == "Action Required":
+                        elif selected_behavior == "Action Required":
                             badge_color = "orange"
-                        else:  # New Info, Awaiting Reply, Unknown
+                        else:
                             badge_color = "blue"
-                        
-                        # Using markdown for a simple, colored badge
-                        st.markdown("**Behavior:**")
-                        st.markdown(f"<span style='color:{badge_color};'>●</span> {behavior}", unsafe_allow_html=True)
+                        st.markdown(f"<span style='color:{badge_color}; font-weight:bold;'>●</span> <span style='font-size:1.05em'>{selected_behavior}</span>", unsafe_allow_html=True)
+                        row['behavior'] = selected_behavior
                     with col3:
-                        st.markdown("**Suggested Action:**")
+                        st.markdown(f"<b>Suggested Action:</b>", unsafe_allow_html=True)
                         st.caption(row['rule'])
-                    
                     # --- ROW 2: Conversation Expander ---
                     with st.expander("View Conversation"):
                         st.markdown(f"**AI Analysis**: {row['reason']}")
@@ -536,8 +543,9 @@ else:
         #         feedback_data = []
         #     st.json(feedback_data)
 
-        # ---- Decisions Tab ----
-        with tab_decisions:
+    # ---- Decisions Tab ----
+    # (No duplicate Suggested Action rendering below)
+    with tab_decisions:
             st.header("📊 Decision History & Analytics")
 
             try:
