@@ -1,0 +1,83 @@
+{
+    "scenario_name": "Objection_Path_Pricing",
+    "scenario_description": "The hotel manager replies that the proposed rates are too low for the season. The thread shows a negotiation attempt from the client team to address the price objection.",
+    "thread": [
+        {
+            "message_id": "msg_01",
+            "reply_to_message_id": null,
+            "day": 0,
+            "time": "09:15",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@hotelserenity.com",
+            "cc": [],
+            "subject": "Diwali Discount Offer for Partners",
+            "body": "Dear Hotel Serenity Team,\n\nWe are pleased to offer you a partnership opportunity for our Diwali Discount Offer campaign. We've attached a detailed proposal outlining the rates and benefits.  Please let us know if you are interested in participating.\n\nSincerely,\nYour Email Reply Team"
+        },
+        {
+            "message_id": "msg_02",
+            "reply_to_message_id": "msg_01",
+            "day": 1,
+            "time": "14:30",
+            "sender": "contact@hotelserenity.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "Thank you for your email.  While we appreciate the offer, the proposed rates are significantly lower than our usual Diwali pricing.  We are not able to offer rooms at these rates during this peak season."
+        },
+        {
+            "message_id": "msg_03",
+            "reply_to_message_id": "msg_02",
+            "day": 2,
+            "time": "10:00",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@hotelserenity.com",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "Thank you for your prompt response. We understand that Diwali is a peak season. Could you please let us know what rate you would consider for a partnership? We are flexible and willing to discuss different options to reach a mutually beneficial agreement."
+        },
+        {
+            "message_id": "msg_04",
+            "reply_to_message_id": "msg_03",
+            "day": 2,
+            "time": "15:45",
+            "sender": "contact@hotelserenity.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "We would need to see a rate increase of at least 15% on your proposed rates to consider this partnership."
+        },
+        {
+            "message_id": "msg_05",
+            "reply_to_message_id": "msg_04",
+            "day": 3,
+            "time": "09:30",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@hotelserenity.com",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "We can offer a 10% increase on our initial proposal. This would still provide significant value for your hotel and a strong boost in bookings during the Diwali season.  Would this be acceptable?"
+        },
+        {
+            "message_id": "msg_06",
+            "reply_to_message_id": "msg_05",
+            "day": 3,
+            "time": "11:15",
+            "sender": "contact@hotelserenity.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "Let's meet halfway. We can accept a 12.5% increase on your initial proposal.  This is our final offer."
+        },
+        {
+            "message_id": "msg_07",
+            "reply_to_message_id": "msg_06",
+            "day": 3,
+            "time": "16:00",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@hotelserenity.com",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "Agreed! We accept your counter-offer. Please let us know the next steps to formalize this partnership."
+        }
+    ]
+}

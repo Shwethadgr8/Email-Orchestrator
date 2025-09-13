@@ -1,0 +1,72 @@
+{
+    "scenario_name": "Multi_Reply_Contact_Path_Updates",
+    "scenario_description": "The same sales manager replies multiple times in the thread. First, they ask for details. Then, a few hours later, they reply again with another question or an update before the client has even responded to the first message.",
+    "thread": [
+        {
+            "message_id": "msg_01",
+            "reply_to_message_id": null,
+            "day": 0,
+            "time": "09:15",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@royalcrest.com",
+            "cc": [],
+            "subject": "Summer Weekend Deal for Teams",
+            "body": "Hi team, we're excited to offer you our Summer Weekend Deal for Teams!  Could you provide some details about your team's needs and size?"
+        },
+        {
+            "message_id": "msg_02",
+            "reply_to_message_id": "msg_01",
+            "day": 0,
+            "time": "11:45",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@royalcrest.com",
+            "cc": [],
+            "subject": "Re: Summer Weekend Deal for Teams",
+            "body": "Just checking in!  To help us tailor the perfect package, could you also let us know your preferred dates for your weekend getaway?"
+        },
+        {
+            "message_id": "msg_03",
+            "reply_to_message_id": "msg_02",
+            "day": 1,
+            "time": "10:30",
+            "sender": "contact@royalcrest.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Summer Weekend Deal for Teams",
+            "body": "Hi there, Yes, I'm the right contact. We have a team of 12 and are flexible on dates, ideally sometime in August."
+        },
+        {
+            "message_id": "msg_04",
+            "reply_to_message_id": "msg_03",
+            "day": 1,
+            "time": "14:15",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@royalcrest.com",
+            "cc": [],
+            "subject": "Re: Summer Weekend Deal for Teams",
+            "body": "Great!  We have several options that would suit a team of 12 in August.  Could you tell me your budget range?"
+        },
+        {
+            "message_id": "msg_05",
+            "reply_to_message_id": "msg_04",
+            "day": 2,
+            "time": "09:00",
+            "sender": "contact@royalcrest.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Summer Weekend Deal for Teams",
+            "body": "Our budget is approximately $5,000."
+        },
+        {
+            "message_id": "msg_06",
+            "reply_to_message_id": "msg_05",
+            "day": 2,
+            "time": "11:00",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@royalcrest.com",
+            "cc": [],
+            "subject": "Re: Summer Weekend Deal for Teams",
+            "body": "Fantastic!  I'll put together a customized proposal based on your requirements and send it over by end of day."
+        }
+    ]
+}

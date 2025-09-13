@@ -1,0 +1,83 @@
+{
+    "scenario_name": "New_Info_Path_Renovation",
+    "scenario_description": "The hotel contact provides unexpected new information, stating that the hotel will be under renovation during the requested period and offers alternative dates or a sister property.",
+    "thread": [
+        {
+            "message_id": "msg_01",
+            "reply_to_message_id": null,
+            "day": 0,
+            "time": "09:15",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@hotelserenity.com",
+            "cc": [],
+            "subject": "Re: New Year Rewards Program",
+            "body": "Hi team, following up on our New Year Rewards Program campaign. Are you the right contact for this?"
+        },
+        {
+            "message_id": "msg_02",
+            "reply_to_message_id": "msg_01",
+            "day": 0,
+            "time": "14:30",
+            "sender": "contact@hotelserenity.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Re: New Year Rewards Program",
+            "body": "Yes, I am.  Thanks for reaching out!"
+        },
+        {
+            "message_id": "msg_03",
+            "reply_to_message_id": "msg_02",
+            "day": 0,
+            "time": "15:00",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@hotelserenity.com",
+            "cc": [],
+            "subject": "Re: Re: Re: New Year Rewards Program",
+            "body": "Great! We're looking to partner for the New Year's period, December 28th - January 2nd."
+        },
+        {
+            "message_id": "msg_04",
+            "reply_to_message_id": "msg_03",
+            "day": 1,
+            "time": "10:45",
+            "sender": "contact@hotelserenity.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Re: Re: Re: New Year Rewards Program",
+            "body": "I'm so sorry, but we'll be undergoing renovations during that period.  We expect significant disruption."
+        },
+        {
+            "message_id": "msg_05",
+            "reply_to_message_id": "msg_04",
+            "day": 1,
+            "time": "11:15",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@hotelserenity.com",
+            "cc": [],
+            "subject": "Re: Re: Re: Re: Re: New Year Rewards Program",
+            "body": "Oh dear, that's unfortunate.  Could we explore alternative dates? Perhaps the week before or after?"
+        },
+        {
+            "message_id": "msg_06",
+            "reply_to_message_id": "msg_05",
+            "day": 1,
+            "time": "12:00",
+            "sender": "contact@hotelserenity.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Re: Re: Re: Re: Re: New Year Rewards Program",
+            "body": "Let me check.  Alternatively, our sister property, Hotel Tranquility, is available and has similar amenities. Would you be open to that option?"
+        },
+        {
+            "message_id": "msg_07",
+            "reply_to_message_id": "msg_06",
+            "day": 1,
+            "time": "13:30",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@hotelserenity.com",
+            "cc": [],
+            "subject": "Re: Re: Re: Re: Re: Re: Re: New Year Rewards Program",
+            "body": "We'll consider both options. Thanks for your prompt response and understanding."
+        }
+    ]
+}

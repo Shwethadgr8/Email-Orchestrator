@@ -1,0 +1,83 @@
+{
+    "scenario_name": "Confirmation_Path",
+    "scenario_description": "A straightforward conversation where the hotel manager quickly confirms interest and availability, leading to a successful outcome with minimal back-and-forth.",
+    "thread": [
+        {
+            "message_id": "msg_01",
+            "reply_to_message_id": null,
+            "day": 0,
+            "time": "09:15",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@majesticpearl.com",
+            "cc": [],
+            "subject": "New Year Rewards Program",
+            "body": "Dear Majestic Pearl Team,\n\nWe are writing to you today to introduce our exciting New Year Rewards Program.  We believe this program would be a perfect fit for your esteemed establishment and would greatly benefit your guests.\n\nWould you be interested in learning more?"
+        },
+        {
+            "message_id": "msg_02",
+            "reply_to_message_id": "msg_01",
+            "day": 0,
+            "time": "10:03",
+            "sender": "contact@majesticpearl.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: New Year Rewards Program",
+            "body": "Good morning!\n\nYes, we are interested in learning more about your New Year Rewards Program. Please provide more details."
+        },
+        {
+            "message_id": "msg_03",
+            "reply_to_message_id": "msg_02",
+            "day": 0,
+            "time": "10:45",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@majesticpearl.com",
+            "cc": [],
+            "subject": "Re: New Year Rewards Program",
+            "body": "Certainly!  Please find an attached document outlining the program details, benefits, and participation requirements.  We're available for a call to answer any questions you may have."
+        },
+        {
+            "message_id": "msg_04",
+            "reply_to_message_id": "msg_03",
+            "day": 0,
+            "time": "11:12",
+            "sender": "contact@majesticpearl.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: New Year Rewards Program",
+            "body": "Thank you! We've received the document and will review it thoroughly. We'll be in touch shortly to schedule a call."
+        },
+        {
+            "message_id": "msg_05",
+            "reply_to_message_id": "msg_04",
+            "day": 1,
+            "time": "09:30",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@majesticpearl.com",
+            "cc": [],
+            "subject": "Re: New Year Rewards Program",
+            "body": "Sounds good! Looking forward to hearing from you."
+        },
+        {
+            "message_id": "msg_06",
+            "reply_to_message_id": "msg_05",
+            "day": 1,
+            "time": "10:15",
+            "sender": "contact@majesticpearl.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: New Year Rewards Program",
+            "body": "We've reviewed the program and are very interested in participating.  Let's schedule a call for tomorrow at 2 PM your time to finalize the agreement."
+        },
+        {
+            "message_id": "msg_07",
+            "reply_to_message_id": "msg_06",
+            "day": 1,
+            "time": "10:22",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@majesticpearl.com",
+            "cc": [],
+            "subject": "Re: New Year Rewards Program",
+            "body": "Perfect!  Tomorrow at 2 PM works for us.  We'll send a calendar invite shortly."
+        }
+    ]
+}

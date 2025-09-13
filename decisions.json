@@ -16,5 +16,14 @@
     "decision": "Overridden",
     "comment": "Testing",
     "timestamp": "2025-09-13T15:16:27.441890"
+  },
+  {
+    "user": "pooja",
+    "thread_id": "Confirmation_Path",
+    "behavior": "Confirmation",
+    "suggestion": "Mark as confirmed in CRM",
+    "decision": "Accepted",
+    "comment": null,
+    "timestamp": "2025-09-13T21:24:13.872157"
   }
 ]

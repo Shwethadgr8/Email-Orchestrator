@@ -50,37 +50,45 @@ DECISIONS_FILE = "decisions.json"
 if not os.path.exists(DECISIONS_FILE):
     with open(DECISIONS_FILE, "w") as f:
         json.dump([], f)
+        
+        
+# ---- Helper Function to Load Real Data ----
+def load_threads_from_directory(directory_path):
+    """Loads all thread JSON files from a directory and transforms them."""
+    threads = []
+    # Check if the directory exists
+    if not os.path.exists(directory_path):
+        # Use st.error to display a clear error in the app if the path is wrong
+        st.error(f"Data directory not found: {directory_path}")
+        return []
+
+    # Sort the files to ensure a consistent order
+    for filename in sorted(os.listdir(directory_path)):
+        if filename.endswith(".json"):
+            filepath = os.path.join(directory_path, filename)
+            try:
+                with open(filepath, "r") as f:
+                    data = json.load(f)
+
+                # This part transforms your file's structure into the format the app expects
+                transformed_thread = {
+                    "thread_id": data.get("scenario_name", filename),
+                    "subject": data.get("thread", [{}])[0].get("subject", "No Subject"),
+                    "messages": [
+                        # We combine 'sender' and 'body' into a single 'content' string
+                        {"content": f"{msg.get('sender', 'Unknown')}: {msg.get('body', '')}"}
+                        for msg in data.get("thread", [])
+                    ]
+                }
+                threads.append(transformed_thread)
+            except (json.JSONDecodeError, IndexError) as e:
+                # This will print a warning in your terminal if a file is broken
+                print(f"Warning: Could not load or parse {filename}. Error: {e}")
+    return threads
 
 # ---- Sample Threads with Multi-Turn Messages ----
-sample_threads = [
-    {
-        "thread_id": "C1",
-        "subject": "Campaign: Diwali Discount Offer",
-        "messages": [
-            {"content": "hotel_abc@hotel.com: Hello, we received your campaign email."},
-            {"content": "hotel_abc@hotel.com: We are interested, can you share more details?"},
-            {"content": "hotel_abc@hotel.com: Also, we need clarification on commission rates."},
-            {"content": "hotel_abc@hotel.com: Thanks, we will confirm by tomorrow."}
-        ]
-    },
-    {
-        "thread_id": "C2",
-        "subject": "Campaign: New Year Rewards Program",
-        "messages": [
-            {"content": "hotel_xyz@hotel.com: We are not happy with the previous rewards."},
-            {"content": "hotel_xyz@hotel.com: Please escalate to your manager immediately!"},
-            {"content": "hotel_xyz@hotel.com: We changed our contact person, please update."}
-        ]
-    },
-    {
-        "thread_id": "C3",
-        "subject": "Campaign: Summer Festival Offer",
-        "messages": [
-            {"content": "hotel_pqr@hotel.com: Yes, count us in for the campaign!"},
-            {"content": "hotel_pqr@hotel.com: Thanks for the update."}
-        ]
-    }
-]
+DATA_DIRECTORY="hotel_scenario_data"
+sample_threads = load_threads_from_directory(DATA_DIRECTORY)
 
 # ---- LangGraph Setup ----
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", api_key=os.getenv("GEMINI_API_KEY"))
@@ -100,34 +108,50 @@ def parse_model_response(response_text):
 
 def classify_behavior(state: CustomState):
     all_text = "\n".join([m["content"] if isinstance(m, dict) else m.content for m in state["messages"]])
+# (Inside your classify_behavior function)
+
     prompt = f"""
-You are a campaign assistant analyzing hotel email conversations.
-Each message is part of a conversation with a hotel.
+    You are an expert email thread analyst for a hotel outreach campaign. Your goal is to understand the complete state of a conversation and classify it to help a human decide on the next action.
 
-Step 1: Read each message in order.
-Step 2: Identify if the message indicates any of these behaviors:
-  - Confirmation
-  - Objection
-  - Escalation
-  - New Info
-  - Unknown
+    Follow these steps very carefully:
+    1.  **Summarize:** Read the entire conversation from start to finish and mentally summarize the key events.
+    2.  **Identify the Current State:** Determine the most recent significant action. Who is expected to act next? For example, are we waiting for a proposal from them, or are they waiting for information from us?
+    3.  **Classify:** Based on the current state, classify the thread's overall behavior into ONE of the following categories:
+        - **Confirmation:** The hotel has clearly agreed to the deal or is ready to sign.
+        - **Objection:** The hotel has raised a clear blocker (e.g., price, availability, terms).
+        - **Escalation:** The conversation was passed to a new, more senior contact.
+        - **New Info:** The hotel provided new, unexpected information (e.g., renovations, contact change).
+        - **Awaiting Reply:** We have asked a question or sent a proposal and are waiting for the hotel to reply.
+        - **Action Required:** The hotel has asked us a question and is waiting for our response.
+        - **Unknown:** The intent is genuinely unclear or the conversation is stuck.
+    4.  **Reason:** Provide a concise, one-sentence reason for your classification that explains the current situation.
 
-Step 3: After reading all messages, determine the **overall classification** of the conversation.
-Step 4: Provide a **brief reasoning**.
+    Conversation History:
+    {all_text}
 
-Conversation:
-{all_text}
-
-Output format (JSON ONLY):
-{{
-  "behavior": "<one of Confirmation, Objection, Escalation, New Info, Unknown>",
-  "reason": "<brief explanation>"
-}}
-"""
+    Output your final analysis in a valid JSON format ONLY:
+    {{
+      "behavior": "<The category from Step 3>",
+      "reason": "<Your one-sentence reason from Step 4>"
+    }}
+    """
     resp = llm.invoke(prompt)
     parsed = parse_model_response(resp.content)
-    state["behavior"] = parsed.get("behavior", "Unknown")
-    state["reason"] = parsed.get("reason", "")
+    
+    # This block makes the function robust against unexpected list outputs from the LLM.
+    final_parsed_dict = {}
+    if isinstance(parsed, list) and len(parsed) > 0 and isinstance(parsed[0], dict):
+        # If the LLM returned a list of dictionaries, we'll just take the first one.
+        final_parsed_dict = parsed[0]
+    elif isinstance(parsed, dict):
+        # If it's a dictionary as expected, we use it directly.
+        final_parsed_dict = parsed
+    # If it's an empty list or another unexpected type, final_parsed_dict will remain empty.
+    
+
+    # Now we can safely use .get() on a dictionary.
+    state["behavior"] = final_parsed_dict.get("behavior", "Unknown")
+    state["reason"] = final_parsed_dict.get("reason", "Model returned an unexpected format.")
     print(f"ClassifyBehavior - State: {state}")
     return state
 
@@ -218,40 +242,55 @@ if not st.session_state.logged_in:
             st.rerun()
         else:
             st.error("Enter username and password")
+# (This code replaces the entire 'else' block after the login)
 else:
-    tab1, tab2, tab3 = st.tabs(["Rules", "Inbox", "Decisions"])
-
-    # ---- Rules Tab ----
-    with tab1:
+    # ---- Sidebar for Rules ----
+    with st.sidebar:
         st.header("Edit Rules")
-        rules = load_rules()  # Load current rules
+        st.markdown("Define the default action for each detected behavior.")
+        
+        rules = load_rules()
         new_rules = {}
-        for k, v in rules.items():
-            new_rules[k] = st.text_input(f"{k}", v)
+        for behavior, action in rules.items():
+            # Using a more descriptive label for clarity
+            new_rules[behavior] = st.text_input(f"Action for '{behavior}'", action, key=f"rule_{behavior}")
+        
         if st.button("Save Rules"):
             with open(RULES_FILE, "w") as f:
                 json.dump(new_rules, f, indent=2)
-            st.session_state.rules_version += 1  # Increment to invalidate cache
-            st.cache_data.clear()  # Clear cache to force workflow reload
-            st.session_state.rules_saved = True  # Set saved state
+            st.session_state.rules_version += 1
+            st.cache_data.clear()
+            st.session_state.rules_saved = True
             st.rerun()
 
-        # Show persistent "Saved" message
-        if st.session_state.rules_saved:
+        if st.session_state.get("rules_saved", False):
             st.success("Rules saved!", icon="✅")
-            if st.button("Clear Saved Message"):
-                st.session_state.rules_saved = False
-                st.rerun()
+            
+    st.markdown("---") # Adds a visual separator
+    st.header("Inbox Filter")
+
+    # Get the list of possible behaviors from your rules file
+    rules = load_rules()
+    filter_options = ["All"] + list(rules.keys()) 
+
+    # Create the selectbox widget
+    st.selectbox(
+        "Show threads with behavior:",
+        options=filter_options,
+        key="inbox_filter"  # We give it a key to access its value later
+)
+
+    # ---- Main Content Area with Tabs ----
+    tab_inbox, tab_decisions = st.tabs(["Inbox", "Decisions"])
 
     # ---- Inbox Tab ----
-    with tab2:
+    with tab_inbox:
         st.header("Campaign Replies Inbox")
+        # (The rest of your inbox code goes here, unchanged)
         inbox_data = []
         for thread in sample_threads:
             messages_for_thread = [HumanMessage(content=m["content"]) for m in thread["messages"]]
-            print(f"Messages for {thread['thread_id']}: {[m.content for m in messages_for_thread]}")
             state = run_workflow(messages_for_thread, thread["thread_id"], st.session_state.rules_version)
-            print(f"Thread {thread['thread_id']} - Final State: {state}")
             inbox_data.append({
                 "thread_id": thread["thread_id"],
                 "hotels": ", ".join(set(m["content"].split(":")[0] for m in thread["messages"])),
@@ -260,78 +299,130 @@ else:
                 "reason": state.get("reason", ""),
                 "messages": thread["messages"]
             })
-        print("Inbox Data:", inbox_data)
+            
+        if st.session_state.inbox_filter == "All":
+            filtered_inbox_data = inbox_data
+        else:
+            filtered_inbox_data = [
+                row for row in inbox_data 
+                if row['behavior'] == st.session_state.inbox_filter
+        ]
+        
+        if not filtered_inbox_data:
+            st.info("No threads match the current filter.")
+        else:
+            for row in filtered_inbox_data:
+                # Create a container for each thread to act as a "card"
+                with st.container(border=True):
+                    # --- ROW 1: Key Information ---
+                    col1, col2, col3 = st.columns([2, 1, 2])
+                    with col1:
+                        # Clean up the participant list for readability
+                        participants = row['hotels'].replace(", Your Email Reply Team", "").strip()
+                        st.markdown("**Conversation with:**")
+                        st.caption(participants)
+                    with col2:
+                        # Create colored "badges" for the behavior classification
+                        behavior = row['behavior']
+                        if behavior == "Confirmation":
+                            badge_color = "green"
+                        elif behavior in ["Objection", "Escalation"]:
+                            badge_color = "red"
+                        elif behavior == "Action Required":
+                            badge_color = "orange"
+                        else:  # New Info, Awaiting Reply, Unknown
+                            badge_color = "blue"
+                        
+                        # Using markdown for a simple, colored badge
+                        st.markdown("**Behavior:**")
+                        st.markdown(f"<span style='color:{badge_color};'>●</span> {behavior}", unsafe_allow_html=True)
+                    with col3:
+                        st.markdown("**Suggested Action:**")
+                        st.caption(row['rule'])
+                    
+                    # --- ROW 2: Conversation Expander ---
+                    with st.expander("View Conversation"):
+                        st.markdown(f"**AI Analysis**: {row['reason']}")
+                        st.markdown("---")
+                        for msg in row["messages"]:
+                            content = msg.get("content", ":")
+                            parts = content.split(":", 1)
+                            sender = parts[0].strip()
+                            body = parts[1].strip() if len(parts) > 1 else ""
+                            role = "assistant" if "Your Email Reply Team" in sender else "user"
+                            with st.chat_message(role):
+                                st.markdown(f"**From:** {sender}")
+                                st.write(body)
+                    
+                    # --- ROW 3: Action Buttons and Status ---
+                    key_accept = f"accept_{row['thread_id']}"
+                    key_override = f"override_{row['thread_id']}"
+                    decision_key = f"decision_{row['thread_id']}"
+                    comment_key = f"comment_{row['thread_id']}"
+                    
+                    b_col1, b_col2, b_col3 = st.columns([1, 1, 3])
+                    
+                    decision = st.session_state.get(decision_key)
+                    
+                    with b_col1:
+                        if decision == "Accepted":
+                            st.success("Accepted", icon="✅")
+                        else:
+                            if st.button("Accept", key=key_accept, use_container_width=True):
+                                save_decision(
+                                    st.session_state.username,
+                                    row["thread_id"],
+                                    row["behavior"],
+                                    row["rule"],
+                                    "Accepted"
+                                )
+                                st.session_state[decision_key] = "Accepted"
+                                st.rerun()
+                    
+                    with b_col2:
+                        if decision == "Overridden":
+                            if not st.session_state.get(f"saved_{row['thread_id']}"):
+                                st.warning("Overridden", icon="⚠️")
+                            else:
+                                st.success("Saved", icon="✅")
+                        else:
+                            if st.button("Override", key=key_override, use_container_width=True):
+                                st.session_state[decision_key] = "Overridden"
+                                st.rerun()
+                    
+                    with b_col3:
+                        # Handle override comment and save logic
+                        if decision == "Overridden" and not st.session_state.get(f"saved_{row['thread_id']}"):
+                            comment_col, save_col, clear_col = st.columns([2, 1, 1])
+                            with comment_col:
+                                comment = st.text_input("Reason for override:", key=comment_key, label_visibility="collapsed")
+                            with save_col:
+                                if st.button("Save Override", key=f"save_override_{row['thread_id']}", use_container_width=True):
+                                    save_decision(
+                                        st.session_state.username,
+                                        row["thread_id"],
+                                        row["behavior"],
+                                        row["rule"],
+                                        "Overridden",
+                                        comment
+                                    )
+                                    st.session_state[f"saved_{row['thread_id']}"] = True
+                                    st.success("Override saved!")
+                                    st.rerun()
+                        
+                        # Clear button for saved decisions
+                        if st.session_state.get(f"saved_{row['thread_id']}"):
+                            if st.button("Clear", key=f"clear_{row['thread_id']}"):
+                                del st.session_state[f"saved_{row['thread_id']}"]
+                                st.rerun()
 
-        for row in inbox_data:
-            cols = st.columns([2, 2, 2, 2, 2])
-            cols[0].markdown(f"**{row['hotels']}**")
-            cols[1].markdown(f"**{row['behavior']}**")
-            cols[2].markdown(row['rule'])
-            key_accept = f"accept_{row['thread_id']}"
-            key_override = f"override_{row['thread_id']}"
-            decision_key = f"decision_{row['thread_id']}"
-            comment_key = f"comment_{row['thread_id']}"
-
-            if cols[3].button("Accept", key=key_accept):
-                save_decision(
-                    st.session_state.username,
-                    row["thread_id"],
-                    row["behavior"],
-                    row["rule"],
-                    "Accepted"
-                )
-                st.session_state[decision_key] = "Accepted"
-                st.rerun()
-
-            if cols[4].button("Override", key=key_override):
-                st.session_state[decision_key] = "Overridden"
-                st.rerun()
-
-            decision = st.session_state.get(decision_key)
-            if decision == "Accepted":
-                cols[3].success("Accepted", icon="✅")
-            elif decision == "Overridden":
-                cols[4].warning("Overridden", icon="⚠️")
-                comment = st.text_input("Reason for override:", key=comment_key)
-                # Show "Save Override" only if not saved
-                if not st.session_state.get(f"saved_{row['thread_id']}"):
-                    if st.button("Save Override", key=f"save_override_{row['thread_id']}"):
-                        save_decision(
-                            st.session_state.username,
-                            row["thread_id"],
-                            row["behavior"],
-                            row["rule"],
-                            "Overridden",
-                            comment
-                        )
-                        st.session_state[f"saved_{row['thread_id']}"] = True
-                        st.success("Override saved!")
-                        st.rerun()
-
-            # Show saved message and Clear button
-            if st.session_state.get(f"saved_{row['thread_id']}"):
-                cols[4].success("Saved", icon="✅")
-                if st.button("Clear", key=f"clear_{row['thread_id']}"):
-                    del st.session_state[f"saved_{row['thread_id']}"]
-                    st.rerun()
-
-            with st.expander("View Conversation"):
-                st.markdown(f"**AI Analysis**: {row['reason']}")
-                for msg in row["messages"]:
-                    st.write(msg["content"])
-
-    # ---- Decisions Tab ----
-    with tab3:
-        st.header("Decision History")
-        try:
-            with open(DECISIONS_FILE, "r") as f:
-                try:
+        # ---- Decisions Tab ----
+        with tab_decisions:
+            st.header("Decision History")
+            try:
+                with open(DECISIONS_FILE, "r") as f:
                     decisions = json.load(f)
-                except json.JSONDecodeError:
-                    print(f"Warning: {DECISIONS_FILE} is invalid or empty. Displaying empty list.")
-                    decisions = []
-        except FileNotFoundError:
-            print(f"Warning: {DECISIONS_FILE} not found. Displaying empty list.")
-            decisions = []
-        for d in decisions:
-            st.write(d)
+            except (FileNotFoundError, json.JSONDecodeError):
+                decisions = []
+            st.write(decisions)
+                        

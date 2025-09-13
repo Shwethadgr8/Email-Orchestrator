@@ -1,0 +1,61 @@
+{
+    "scenario_name": "Repeated_Outreach_Path_Ghosting",
+    "scenario_description": "After showing initial interest, the hotel contact goes silent. The thread must show the client team sending at least two follow-up emails over several days before finally getting a response.",
+    "thread": [
+        {
+            "message_id": "msg_01",
+            "reply_to_message_id": null,
+            "day": 0,
+            "time": "09:15",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@sunsetvistahotel.com",
+            "cc": [],
+            "subject": "Diwali Discount Offer for Partners",
+            "body": "Dear Sunset Vista Hotel team,\n\nWe're excited to offer you a special Diwali discount on our partner program!  This is a fantastic opportunity to boost your bookings during the peak Diwali season. Please see the attached brochure for details. We'd love to discuss how we can tailor this offer to best suit your needs.\n\nSincerely,\nYour Email Reply Team"
+        },
+        {
+            "message_id": "msg_02",
+            "reply_to_message_id": "msg_01",
+            "day": 2,
+            "time": "14:30",
+            "sender": "contact@sunsetvistahotel.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "Thanks for reaching out!  We'll review this and get back to you."
+        },
+        {
+            "message_id": "msg_03",
+            "reply_to_message_id": "msg_02",
+            "day": 7,
+            "time": "10:00",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@sunsetvistahotel.com",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "Hi team,\nJust checking in to see if you had a chance to review the Diwali offer.  Let us know if you have any questions."
+        },
+        {
+            "message_id": "msg_04",
+            "reply_to_message_id": "msg_03",
+            "day": 10,
+            "time": "11:45",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@sunsetvistahotel.com",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "Following up again on our Diwali Discount Offer. We understand you're busy, but we'd really appreciate the opportunity to discuss how this could benefit Sunset Vista Hotel."
+        },
+        {
+            "message_id": "msg_05",
+            "reply_to_message_id": "msg_04",
+            "day": 14,
+            "time": "15:20",
+            "sender": "contact@sunsetvistahotel.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Diwali Discount Offer for Partners",
+            "body": "Apologies for the delay.  We're interested in learning more.  Please schedule a brief call next week."
+        }
+    ]
+}

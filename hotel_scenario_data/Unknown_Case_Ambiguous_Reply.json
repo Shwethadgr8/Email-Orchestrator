@@ -1,0 +1,74 @@
+{
+    "scenario_name": "Unknown_Case_Ambiguous_Reply",
+    "scenario_description": "The hotel contact sends a confusing, one-line reply like 'we will look into this.' The thread shows the client team trying to get clarification on the meaning and next steps.",
+    "thread": [
+        {
+            "message_id": "msg_01",
+            "reply_to_message_id": null,
+            "day": 0,
+            "time": "09:15",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@oakhaveninn.com",
+            "cc": [],
+            "subject": "Re: Exclusive Holiday Event Package",
+            "body": "Hi team, following up on our Exclusive Holiday Event Package campaign. Are you the right contact for this?"
+        },
+        {
+            "message_id": "msg_02",
+            "reply_to_message_id": "msg_01",
+            "day": 0,
+            "time": "10:30",
+            "sender": "contact@oakhaveninn.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Re: Exclusive Holiday Event Package",
+            "body": "We will look into this."
+        },
+        {
+            "message_id": "msg_03",
+            "reply_to_message_id": "msg_02",
+            "day": 0,
+            "time": "11:00",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@oakhaveninn.com",
+            "cc": [],
+            "subject": "Re: Re: Re: Exclusive Holiday Event Package",
+            "body": "Thank you for your reply.  Could you please clarify what 'look into this' means?  What are the next steps?"
+        },
+        {
+            "message_id": "msg_04",
+            "reply_to_message_id": "msg_03",
+            "day": 1,
+            "time": "08:45",
+            "sender": "contact@oakhaveninn.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [],
+            "subject": "Re: Re: Re: Re: Exclusive Holiday Event Package",
+            "body": "I've forwarded your email to the appropriate department. They will be in touch shortly."
+        },
+        {
+            "message_id": "msg_05",
+            "reply_to_message_id": "msg_04",
+            "day": 1,
+            "time": "14:20",
+            "sender": "Your Email Reply Team",
+            "recipient": "contact@oakhaveninn.com",
+            "cc": [],
+            "subject": "Re: Re: Re: Re: Re: Exclusive Holiday Event Package",
+            "body": "Great, thank you for the update.  Please let me know if there's anything else we can provide to expedite this process."
+        },
+        {
+            "message_id": "msg_06",
+            "reply_to_message_id": "msg_05",
+            "day": 2,
+            "time": "10:00",
+            "sender": "sales@oakhaveninn.com",
+            "recipient": "Your Email Reply Team",
+            "cc": [
+                "contact@oakhaveninn.com"
+            ],
+            "subject": "Re: Re: Re: Re: Re: Re: Exclusive Holiday Event Package",
+            "body": "Hello!  My apologies for the delay.  We're happy to discuss your Holiday Event Package.  Please call me at 555-1212 to discuss options."
+        }
+    ]
+}
