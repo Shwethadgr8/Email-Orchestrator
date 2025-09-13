@@ -542,9 +542,6 @@ else:
         #     except (FileNotFoundError, json.JSONDecodeError):
         #         feedback_data = []
         #     st.json(feedback_data)
-
-    # ---- Decisions Tab ----
-    # (No duplicate Suggested Action rendering below)
     with tab_decisions:
             st.header("📊 Decision History & Analytics")
 
