@@ -1,4 +1,7 @@
 Email Behavior Orchestrator
+
+Demo link: https://drive.google.com/drive/folders/1YnTCM1ETeSRf6Q1TLSH3dL80PDYJWyUE?usp=sharing
+
 Overview
 The Email Behavior Orchestrator is a proof-of-concept (PoC) Streamlit application designed to assist an in-house email team in managing large-scale outbound email campaigns to hotels. It processes multi-turn email threads, classifies reply behaviors (e.g., Confirmation, Objection, Escalation, New Info, Unknown), and suggests actions based on configurable rules. The system ensures the email team retains full control as decision-makers, with clear visibility into AI-driven analysis and the ability to accept or override suggestions with minimal effort.
 Problem Statement
