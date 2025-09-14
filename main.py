@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 import pandas as pd 
 import plotly.express as px 
 
-
+st.set_page_config(layout="wide")
 load_dotenv()
 
 # ---- Feedback and Comment Storage ----
@@ -49,43 +49,40 @@ def store_feedback(thread_id, ai_response, user_feedback, comment, overridden=Fa
         json.dump(feedback_data, f, indent=2)
 
 # ---- Draft Email Suggestion Helper ----
-def suggest_draft_email(conversation, behavior, tone="auto"):
+def suggest_draft_email(llm, conversation_history, behavior):
     """
-    Suggest a polite, context-appropriate draft email based on conversation and behavior.
+    Generates a context-aware draft email using an LLM.
     """
-    if tone == "auto":
-        if behavior in ["Confirmation", "Escalation"]:
-            tone = "professional"
-        elif behavior in ["Objection", "New Info", "Action Required"]:
-            tone = "concise"
-        else:
-            tone = "friendly"
+    # Create a clean, readable version of the conversation history
+    conversation_text = "\n".join([msg.get("content", "") for msg in conversation_history])
 
-    # Simple template logic (can be replaced with LLM call for more advanced suggestions)
-    if behavior == "Confirmation":
-        draft = "Thank you for your confirmation. We look forward to working with you. Please let us know if you need any further information."
-    elif behavior == "Objection":
-        draft = "Thank you for sharing your concerns. We appreciate your feedback and would be happy to discuss possible solutions or adjustments. Please let us know how we can address your objections."
-    elif behavior == "Escalation":
-        draft = "Thank you for escalating this matter. We will review the details and get back to you as soon as possible. If you have any additional information, please share it with us."
-    elif behavior == "New Info":
-        draft = "Thank you for providing this new information. We will update our records accordingly. Please let us know if there is anything else we should be aware of."
-    elif behavior == "Action Required":
-        draft = "Thank you for your message. We will take the necessary action and update you soon. If you have any further questions, please let us know."
-    elif behavior == "Awaiting Reply":
-        draft = "Just following up on our previous conversation. Please let us know if you have any updates or questions."
-    else:
-        draft = "Thank you for your message. Please let us know how we can assist you further."
+    prompt = f"""
+    You are an expert sales assistant. Your task is to draft a concise, professional, and helpful email reply based on a conversation history.
 
-    # Add polite closing
-    if tone == "professional":
-        closing = "Best regards,\nYour Email Reply Team"
-    elif tone == "concise":
-        closing = "Regards,\nYour Email Reply Team"
-    else:
-        closing = "Thanks!\nYour Email Reply Team"
+    **Instructions:**
+    1.  **Read the entire conversation** to understand the context, key topics (like pricing, dates, or features), and the current situation.
+    2.  **Analyze the final classification** of the thread, which is: "{behavior}".
+    3.  **Draft a reply** from "Your Email Reply Team" that directly addresses the last message from the other party.
+    4.  **Incorporate specific facts** from the conversation naturally (e.g., mention the specific objection, refer to the new information provided, or ask a clarifying question).
+    5.  **Do NOT** include a subject line.
+    6.  **Do NOT** include a salutation like "Hi [Name]".
+    7.  **DO** end with an appropriate closing like "Best regards," or "Thanks,".
 
-    return f"{draft}\n\n{closing}"
+    ---
+    **Conversation History:**
+    {conversation_text}
+    ---
+
+    **Draft the email reply now:**
+    """
+    
+    try:
+        response = llm.invoke(prompt)
+        # We expect the model to return the draft as a plain string
+        return response.content.strip()
+    except Exception as e:
+        print(f"Error during draft generation: {e}")
+        return "Could not generate a draft at this time. Please reply manually."
 
 # ---- Define Custom State Schema ----
 class CustomState(TypedDict):
@@ -404,7 +401,6 @@ else:
                 with st.container(border=True):
                     # --- ROW 1: Key Information ---
                     col1, col2, col3 = st.columns([2, 1.5, 2])
-                    # --- ROW 1: All info in a single row ---
                     with col1:
                         participants = row['hotels'].replace(", Your Email Reply Team", "").strip()
                         st.markdown("<b>Conversation with:</b>", unsafe_allow_html=True)
@@ -414,28 +410,19 @@ else:
                         st.markdown(f"<b>AI:</b> {ai_behavior}", unsafe_allow_html=True)
                         all_behaviors = list(rules.keys())
                         behavior_key = f"behavior_select_{row['thread_id']}"
-                        if behavior_key not in st.session_state:
-                            st.session_state[behavior_key] = ai_behavior
-                        selected_behavior = st.selectbox(
-                            "Manual Behavior",
-                            options=all_behaviors,
-                            index=all_behaviors.index(st.session_state[behavior_key]) if st.session_state[behavior_key] in all_behaviors else 0,
-                            key=behavior_key
-                        )
-                        if selected_behavior == "Confirmation":
-                            badge_color = "green"
-                        elif selected_behavior in ["Objection", "Escalation"]:
-                            badge_color = "red"
-                        elif selected_behavior == "Action Required":
-                            badge_color = "orange"
-                        else:
-                            badge_color = "blue"
-                        st.markdown(f"<span style='color:{badge_color}; font-weight:bold;'>●</span> <span style='font-size:1.05em'>{selected_behavior}</span>", unsafe_allow_html=True)
+                        default_index = all_behaviors.index(ai_behavior) if ai_behavior in all_behaviors else 0
+                        selected_behavior = st.selectbox("Manual Behavior", options=all_behaviors, index=default_index, key=behavior_key, label_visibility="collapsed")
                         row['behavior'] = selected_behavior
+                        if selected_behavior == "Confirmation": badge_color = "green"
+                        elif selected_behavior in ["Objection", "Escalation"]: badge_color = "red"
+                        elif selected_behavior == "Action Required": badge_color = "orange"
+                        else: badge_color = "blue"
+                        st.markdown(f"<span style='color:{badge_color}; font-weight:bold;'>●</span> <span style='font-size:1.05em'>{selected_behavior}</span>", unsafe_allow_html=True)
                     with col3:
                         st.markdown(f"<b>Suggested Action:</b>", unsafe_allow_html=True)
                         st.caption(row['rule'])
-                    # --- ROW 2: Conversation Expander ---
+
+                    # --- ROW 2: Conversation Expander (Unchanged) ---
                     with st.expander("View Conversation"):
                         st.markdown(f"**AI Analysis**: {row['reason']}")
                         st.markdown("---")
@@ -449,53 +436,48 @@ else:
                                 st.markdown(f"**From:** {sender}")
                                 st.write(body)
 
-                    # --- ROW 2.5: Editable Draft Email Suggestion ---
-                    st.markdown("**Draft Email Suggestion:**")
+                    # --- ROW 2.5: NEW CONDITIONAL DRAFT SUGGESTION ---
                     draft_key = f"draft_{row['thread_id']}"
-                    default_draft = suggest_draft_email(row["messages"], row["behavior"])
-                    draft_text = st.text_area(
-                        "Edit the draft before sending:",
-                        value=default_draft,
-                        key=draft_key,
-                        height=120,
-                        label_visibility="collapsed"
-                    )
-                    if st.button("Save Feedback & Draft", key=f"save_feedback_{row['thread_id']}"):
-                        # Store feedback and draft for fine-tuning
-                        store_feedback(
-                            row["thread_id"],
-                            ai_response=row["reason"],
-                            user_feedback=draft_text,
-                            comment=st.session_state.get(f"comment_{row['thread_id']}", ""),
-                            overridden=st.session_state.get(f"saved_{row['thread_id']}", False)
-                        )
-                        st.success("Feedback and draft saved for this thread.")
-                    
-                    # --- ROW 3: Action Buttons and Status ---
+                    draft_button_key = f"draft_button_{row['thread_id']}"
+
+                    # Check who sent the last message
+                    last_message_sender = row["messages"][-1].get("content", "").split(":")[0].strip()
+                    is_reply_needed = "Your Email Reply Team" not in last_message_sender
+
+                    if is_reply_needed:
+                        if st.button("💡 Draft Email Suggestion", key=draft_button_key):
+                            # When button is clicked, generate and store the draft in session state
+                            with st.spinner("Generating smart draft..."):
+                                draft = suggest_draft_email(llm, row["messages"], row["behavior"])
+                                st.session_state[draft_key] = draft
+                        
+                        # If a draft exists in session state, show the text area
+                        if draft_key in st.session_state:
+                            st.text_area(
+                                "**Suggested Draft:**",
+                                value=st.session_state[draft_key],
+                                key=f"text_area_{draft_key}",
+                                height=150
+                            )
+                    else:
+                        st.info("No reply needed (you sent the last message).", icon="➡️")
+
+                    # --- ROW 3: Action Buttons and Status (Unchanged) ---
                     key_accept = f"accept_{row['thread_id']}"
                     key_override = f"override_{row['thread_id']}"
+                    # ... (the rest of the action buttons code remains the same) ...
                     decision_key = f"decision_{row['thread_id']}"
                     comment_key = f"comment_{row['thread_id']}"
-                    
                     b_col1, b_col2, b_col3 = st.columns([1, 1, 3])
-                    
                     decision = st.session_state.get(decision_key)
-                    
                     with b_col1:
                         if decision == "Accepted":
                             st.success("Accepted", icon="✅")
                         else:
                             if st.button("Accept", key=key_accept, use_container_width=True):
-                                save_decision(
-                                    st.session_state.username,
-                                    row["thread_id"],
-                                    row["behavior"],
-                                    row["rule"],
-                                    "Accepted"
-                                )
+                                save_decision(st.session_state.username, row["thread_id"], row["behavior"], row["rule"], "Accepted")
                                 st.session_state[decision_key] = "Accepted"
                                 st.rerun()
-                    
                     with b_col2:
                         if decision == "Overridden":
                             if not st.session_state.get(f"saved_{row['thread_id']}"):
@@ -506,28 +488,17 @@ else:
                             if st.button("Override", key=key_override, use_container_width=True):
                                 st.session_state[decision_key] = "Overridden"
                                 st.rerun()
-                    
                     with b_col3:
-                        # Handle override comment and save logic
                         if decision == "Overridden" and not st.session_state.get(f"saved_{row['thread_id']}"):
                             comment_col, save_col, clear_col = st.columns([2, 1, 1])
                             with comment_col:
                                 comment = st.text_input("Reason for override:", key=comment_key, label_visibility="collapsed")
                             with save_col:
                                 if st.button("Save Override", key=f"save_override_{row['thread_id']}", use_container_width=True):
-                                    save_decision(
-                                        st.session_state.username,
-                                        row["thread_id"],
-                                        row["behavior"],
-                                        row["rule"],
-                                        "Overridden",
-                                        comment
-                                    )
+                                    save_decision(st.session_state.username, row["thread_id"], row["behavior"], row["rule"], "Overridden", comment)
                                     st.session_state[f"saved_{row['thread_id']}"] = True
                                     st.success("Override saved!")
                                     st.rerun()
-                        
-                        # Clear button for saved decisions
                         if st.session_state.get(f"saved_{row['thread_id']}"):
                             if st.button("Clear", key=f"clear_{row['thread_id']}"):
                                 del st.session_state[f"saved_{row['thread_id']}"]

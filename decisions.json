@@ -61,5 +61,14 @@
     "decision": "Accepted",
     "comment": null,
     "timestamp": "2025-09-14T01:52:43.611432"
+  },
+  {
+    "user": "Pooja",
+    "thread_id": "Objection_Path_Pricing.json",
+    "behavior": "Action Required",
+    "suggestion": "Draft a reply for review",
+    "decision": "Accepted",
+    "comment": null,
+    "timestamp": "2025-09-14T12:48:24.421748"
   }
 ]
