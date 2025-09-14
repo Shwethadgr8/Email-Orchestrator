@@ -1,6 +1,6 @@
 {
   "Confirmation": "Mark as confirmed in CRM",
-  "Objection": "Forward to Manager",
+  "Objection": "Forward to Senior Manager",
   "Escalation": "Notify Account Manager",
   "New Info": "Update contact/deal info in CRM",
   "Awaiting Reply": "Set a follow-up reminder for a week",
